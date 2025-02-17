@@ -17,7 +17,7 @@ string ScreenShotCaptureURL(int ScreenShotID){
    //The 'ScreenShotID' will either be the Ticket derived from the OrderTicket() function, or the 'AutoGenID'
    string   ChartFileName  = string(ScreenShotID)+".png";
    bool     ScreenShot     = ChartScreenShot(0,ChartFileName,1600,700,ALIGN_RIGHT);
-   string   ChartImageURL  = "https://bluecitycapitalmedia.blob.core.windows.net/charts/"+ChartFileName;
+   string   ChartImageURL  = "https://github.com/BlauweStadTechnologieen/Screenshots/blob/master/"+ChartFileName;
   
    if (!ScreenShot) 
       DiagnosticMessaging("Screen Capture Error","Unfortunately there was an error in capturing the chart."); 

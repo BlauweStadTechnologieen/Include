@@ -16,10 +16,10 @@
 #include <FunctionsModule.mqh>
 #include <ChartButtonStaticAttrs.mqh>
 
-void SendConfirmationEmail(bool ParamsMet){
+void SendConfirmationEmail(bool ParamsMet, int CandleStar, int EndCandle, int CommencementCandle){
 
    bool     SelectOrder                         =  OrderSelect(PositionsTotal-1,SELECT_BY_POS, MODE_TRADES);
-   string   ParamDiagnostics                    =  ExecutionDiagnostics();
+   string   ParamDiagnostics                    =  ExecutionDiagnostics(CandleStar, EndCandle, CommencementCandle);
    string   ConfirmationOrderProperty           =  "Market Order";
    string   FooterNotesForConformationMessage   =  LegalFooterDisclaimer();
       

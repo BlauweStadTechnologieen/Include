@@ -15,7 +15,7 @@ void RunDiagnostics(){
                                                             
    Sleep(1000);
    
-   SendConfirmationEmail(False);
+   //SendConfirmationEmail(False);
       
    BarTime = Time[0];
 
@@ -23,7 +23,7 @@ void RunDiagnostics(){
 
 }
 
-void RunDiagnostics(int CandleStar, int EndCandle){
+void RunDiagnostics(int CandleStar = 3, int EndCandle = 4){
                                                             
    Sleep(1000);
    

@@ -10,6 +10,7 @@
 #include <RunDiagnostics.mqh> 
 #include <FunctionsModule.mqh> 
 #include <ChartData.mqh> 
+#include <RunMarketExecution.mqh>
 
 double MovingAverage(int AveragingPeriod, int  AveragingMethod){
 
@@ -225,20 +226,127 @@ bool CheckAutomationStatus(){
    
    if(CheckAutomationStatus){
    
-      //Print(__FUNCTION__" PASS");
-      
       return true;
    
    }
-   
-   //Print(__FUNCTION__" FAIL");
    
    return false;
 
 }
 
+
+bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCandle){
+   
+   CandleBodyLength = 0;
+   
+   if(CalculateAverageCandleBodyLength(CommencementCandle) >= (double)VolatilityCandleBodyLength){
+   
+      CandleBodyLength = CalculateAverageCandleBodyLength(CommencementCandle);
+   
+   } else {
+   
+      CandleBodyLength = (double)VolatilityCandleBodyLength;
+   
+   }
+   
+   double   CandleBody[];
+   double   CandleOpen[];
+   double   CandleClose[];
+   
+   if (!ArrayResize(CandleOpen, EndCandle + 1) ||
+    
+      !ArrayResize(CandleClose, EndCandle + 1) ||
+       
+      !ArrayResize(CandleBody, EndCandle + 1)) {
+      
+         DiagnosticMessaging("Array Error","Unfortunately, there was an error in resizing your arrays within the function "__FUNCTION__);
+      
+         return false;
+         
+   }
+   
+   for(int i = 1; i <= EndCandle; i++){
+         
+      CandleOpen[i]   = iOpen(CurrentChartSymbol, 0, i) / _Point;
+        
+      CandleClose[i]  = iClose(CurrentChartSymbol, 0, i) / _Point;
+        
+      CandleBody[i]   = NormalizeDouble(MathAbs(CandleClose[i] - CandleOpen[i]), Digits);
+                        
+      if(DebugMode == DebugOn){
+      
+         Print("#"+string(i)+" | "+string(CandleBody[i])+" | "+DoubleToString(CandleBodyLength,0));
+
+      }
+      
+      if (CandleBody[i] == CandleBody[1]){
+      
+         if(CurrencyPairInVolatileList()){ 
+         
+            if(CandleBody[1] < (double)minimumHammerBody){
+                                          
+               if(DebugMode == DebugOn){
+               
+                  Print(__FUNCTION__," Failed #"+string(i));
+               
+               }
+               
+               return false;
+            
+            } 
+         
+         } else {
+         
+            continue;
+         
+         }
+      
+      }
+      
+      if(i == CandleStar){
+                  
+         if(CandleBody[CandleStar] < (double)minimumHammerBody){
+            
+            if(DebugMode == DebugOn){
+            
+               Print(__FUNCTION__," Failed #"+string(i));
+            
+            }
+                        
+            return false;
+      
+         } else {
+            
+            continue;
+         
+         }
+         
+      }
+      
+      if(CandleBody[i] < CandleBodyLength){
+                   
+         if(DebugMode == DebugOn){
+         
+            Print(__FUNCTION__," Failed #"+string(i));
+         
+         }
+                  
+         return false;
+      
+      } else {
+      
+         continue;
+   
+      }
+   
+}
+
+return true;
+
+}
+
 // --- Condition Check Function
-bool ConditionsCheck(int MarketDirection){
+bool ConditionsCheck(int MarketDirection, int CandleStar, int EndCandle, int CommencementCandle){
 
    // -- All bool functions are checked to ensure that each check return true, before returning to the calling programme.
    if(CheckMovingAverage(8,13,21,55,MarketDirection)){
@@ -250,20 +358,27 @@ bool ConditionsCheck(int MarketDirection){
       && CheckDebugMode()
       && CheckSuspensionStatus()
       && CheckTradingHours()
-      && CheckStandardDeviation()){
-      
+      && CheckStandardDeviation()
+      && CandleBodyLengthAnalysis(CandleStar, EndCandle, CommencementCandle)){
+         
+         ExecuteMarketOrder(MarketDirection, CandleStar, EndCandle, CommencementCandle);
+
          return true;
       
       } else {
                
-         RunDiagnostics();
+         SendConfirmationEmail(False, CandleStar, EndCandle, CommencementCandle);
+         
+         BarTime = Time[0];
          
          return false;
       
       }
       
    }
-         
-   return false;
    
+   MarketDirection = 0;
+   
+   return false;
+            
 }

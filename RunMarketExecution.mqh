@@ -17,7 +17,7 @@
 //| return either a successful execution or a failed execution.                                                             |
 //+------------------------------------------------------------------+
 
-void ExecuteMarketOrder(int OrderProperty){
+void ExecuteMarketOrder(int OrderProperty, int CandleStar, int EndCandle, int CommencementCandle){
 
    double StopLossPrice     =  NormalizeDouble((StopLoss * Point),Digits);
    double TakeProfitPrice   =  NormalizeDouble(((StopLoss * RewardFactor) * Point),Digits);
@@ -119,7 +119,7 @@ void ExecuteMarketOrder(int OrderProperty){
          
          BarTime = Time[0];
                    
-         SendConfirmationEmail(True);
+         SendConfirmationEmail(True, CandleStar, EndCandle, CommencementCandle);
                               
       }
       
