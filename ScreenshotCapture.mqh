@@ -19,8 +19,16 @@ string ScreenShotCaptureURL(int ScreenShotID){
    bool     ScreenShot     = ChartScreenShot(0,ChartFileName,1600,700,ALIGN_RIGHT);
    string   ChartImageURL  = "https://github.com/BlauweStadTechnologieen/Screenshots/blob/master/"+ChartFileName;
   
-   if (!ScreenShot) 
-      DiagnosticMessaging("Screen Capture Error","Unfortunately there was an error in capturing the chart."); 
+   if (!ScreenShot) {
+   
+      string message = "Unfortunately there was an error in capturing the chart.";
+      
+      DiagnosticMessaging("Screen Capture Error",message);
+      
+      return message;
+      
+   }
+       
    return ChartImageURL;
 
 }

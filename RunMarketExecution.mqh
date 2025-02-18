@@ -17,7 +17,7 @@
 //| return either a successful execution or a failed execution.                                                             |
 //+------------------------------------------------------------------+
 
-void ExecuteMarketOrder(int OrderProperty, int CandleStar, int EndCandle, int CommencementCandle){
+bool ExecuteMarketOrder(int OrderProperty, int CandleStar, int EndCandle, int CommencementCandle){
 
    double StopLossPrice     =  NormalizeDouble((StopLoss * Point),Digits);
    double TakeProfitPrice   =  NormalizeDouble(((StopLoss * RewardFactor) * Point),Digits);
@@ -101,35 +101,39 @@ void ExecuteMarketOrder(int OrderProperty, int CandleStar, int EndCandle, int Co
       //As long as the OrderProperty is less than or equal to 5 (the maximum number of order types), an order will attempted to be sent to te broker.
       if(!OrderSend(CurrentChartSymbol,OrderProperty,LotSize,PriceProperty,100,MarketOrderStopLoss,MarketOrderTakeProfit,StringSubstr(EnumToString((ENUM_ENTITY)Group_Entity),0),int(UniqueChartIdentifier),Expires,WebColors)){
       
-      #ifdef __SLEEP_AFTER_EXECUTION_FAIL
-            
-         Sleep(__SLEEP_AFTER_EXECUTION_FAIL);
-            
-      #endif 
+         #ifdef __SLEEP_AFTER_EXECUTION_FAIL
+               
+            Sleep(__SLEEP_AFTER_EXECUTION_FAIL);
+               
+         #endif 
          
          DiagnosticMessaging("Order Execution Failure","Your broker has made an attempt to place an order. Unfortunately this was unsuccessful");
                   
-      } else {
+         return false;
+      
+      } 
                
-         if(DebugMode == DebugOff){
-         
-            ChartButtonStaticAttributes();
-                                             
-         } 
-         
-         BarTime = Time[0];
-                   
-         SendConfirmationEmail(True, CandleStar, EndCandle, CommencementCandle);
-                              
-      }
+      if(DebugMode == DebugOff){
+      
+         ChartButtonStaticAttributes();
+                                          
+      } 
+      
+      BarTime = Time[0];
+                
+      SendConfirmationEmail(True, CandleStar, EndCandle, CommencementCandle);
+      
+      return true;
       
    } else {
    
       // --- If the OrderProperty cannot be deteramined, then an error message will be sent, returning an error code.
       DiagnosticMessaging("Order Execution Error","The type of order could not be determined");
+      
+      return false;
    
    }   
 
-   return;
+   return false;
 
 }

@@ -189,32 +189,26 @@ bool CheckMovingAverage(int MomentumAveragingFast, int MomentumAveragingSlow, in
       if(MovingAverage(MomentumAveragingFast,1) > MovingAverage(MomentumAveragingSlow,0)
       && MovingAverage(TrendAveragingFast,1) > MovingAverage(TrendAveragingSlow,1)){
       
-         //Print(__FUNCTION__" PASS");
-         
          return true;
       
       }
+      
+      return false;
          
    } else if (MarketDirection == 1) {
    
       if(MovingAverage(MomentumAveragingFast,1) < MovingAverage(MomentumAveragingSlow,0)
       && MovingAverage(TrendAveragingFast,1) < MovingAverage(TrendAveragingSlow,1)){
-      
-         //Print(__FUNCTION__" PASS");
          
          return true;
       
       }
-         
-   } else {
-   
-      //Print(__FUNCTION__" INVALID TREND SETTING");
-      
-      DiagnosticMessaging("Invalid Moving Average Setting","Unfortunately, you can entered an invalid moving average trend setting. Please gheck the documentaiton published on the Hub of Le Git");      
       
       return false;
+         
+   } 
    
-   }
+   DiagnosticMessaging("Invalid Moving Average Setting","Unfortunately, you can entered an invalid moving average trend setting. Please gheck the documentaiton published on the Hub of Le Git");      
    
    return false;
 
@@ -315,11 +309,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
                         
             return false;
       
-         } else {
-            
-            continue;
-         
-         }
+         } 
          
       }
       
@@ -333,11 +323,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
                   
          return false;
       
-      } else {
-      
-         continue;
-   
-      }
+      } 
    
 }
 
@@ -361,23 +347,21 @@ bool ConditionsCheck(int MarketDirection, int CandleStar, int EndCandle, int Com
       && CheckStandardDeviation()
       && CandleBodyLengthAnalysis(CandleStar, EndCandle, CommencementCandle)){
          
-         ExecuteMarketOrder(MarketDirection, CandleStar, EndCandle, CommencementCandle);
+         if(!ExecuteMarketOrder(MarketDirection, CandleStar, EndCandle, CommencementCandle)){
+         
+            return false;
+         
+         }
 
          return true;
       
-      } else {
+      } 
                
-         SendConfirmationEmail(False, CandleStar, EndCandle, CommencementCandle);
-         
-         BarTime = Time[0];
-         
-         return false;
+      SendConfirmationEmail(False, CandleStar, EndCandle, CommencementCandle);
       
-      }
-      
+      BarTime = Time[0];
+            
    }
-   
-   MarketDirection = 0;
    
    return false;
             
