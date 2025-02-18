@@ -28,8 +28,7 @@ void SendConfirmationEmail(bool ParamsMet, int CandleStar, int EndCandle, int Co
       CaptureFileNameId         =  FileNameIDGenerator(80000000,89999999);
       ChartURL                  =  ScreenShotCaptureURL(CaptureFileNameId);
       ConfimationEmailGreeting  =  "A "+ConfirmationOrderProperty+" would have been placed with your broker on the "+CurrentChartSymbol+" "+string(ExecutionTimeframe)+"H Chart. However one or more parameters were not met. Check below to see which parameter(s) failed.";
-   
-      RecordUnexecutedPositions("UnexecutedPositions",ChartURL, CaptureFileNameId);
+  
    
    } else {
    
