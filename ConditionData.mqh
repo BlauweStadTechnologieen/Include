@@ -247,11 +247,11 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
    double   CandleOpen[];
    double   CandleClose[];
    
-   if (!ArrayResize(CandleOpen, EndCandle + 1) ||
+ if (!ArrayResize(CandleOpen, EndCandle + 1) ||
     
       !ArrayResize(CandleClose, EndCandle + 1) ||
        
-      !ArrayResize(CandleBody, EndCandle + 1)) {
+      !ArrayResize(CandleBody, EndCandle + 1)){
       
          DiagnosticMessaging("Array Error","Unfortunately, there was an error in resizing your arrays within the function "__FUNCTION__);
       
@@ -259,20 +259,18 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
          
    }
    
-   for(int i = 1; i <= EndCandle; i++){
+   Print(__FUNCTION__ + " - EndCandle is " + string(EndCandle));
+   
+   for(int i = 0;i <= EndCandle; i++){
          
       CandleOpen[i]   = iOpen(CurrentChartSymbol, 0, i) / _Point;
         
       CandleClose[i]  = iClose(CurrentChartSymbol, 0, i) / _Point;
         
       CandleBody[i]   = NormalizeDouble(MathAbs(CandleClose[i] - CandleOpen[i]), Digits);
-                        
-      if(DebugMode == DebugOn){
-      
-         Print("#"+string(i)+" | "+string(CandleBody[i])+" | "+DoubleToString(CandleBodyLength,0));
-
-      }
-      
+ 
+    //Print(__FUNCTION__" Candle "+string(i)+" has a body of "+string(CandleBody[i]));
+     
       if (CandleBody[i] == CandleBody[1]){
       
          if(CurrencyPairInVolatileList()){ 
@@ -312,9 +310,13 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
          } 
          
       }
+            
+      if(CandleBody[i] == CandleBody[0])
+         
+         continue; 
       
       if(CandleBody[i] < CandleBodyLength){
-                   
+                  
          if(DebugMode == DebugOn){
          
             Print(__FUNCTION__," Failed #"+string(i));
