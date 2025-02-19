@@ -236,11 +236,13 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
    if(AverageCandleBodyLength() >= (double)VolatilityCandleBodyLength){
    
       CandleBodyLength = AverageCandleBodyLength();
+      
       Print(__FUNCTION__" ComparisonCandleBodyLength "+string(CandleBodyLength));
    
    } else {
    
       CandleBodyLength = (double)VolatilityCandleBodyLength;
+      
       Print(__FUNCTION__" ComparisonCandleBodyLength  "+string(CandleBodyLength));
    
    }
@@ -261,14 +263,10 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
          
    }
    
-   if(DebugMode == DebugOn){
+   //Print(__FUNCTION__ + " - EndCandle is " + string(EndCandle));
+   //Print(__FUNCTION__+string(CandleStar)+" "+string(EndCandle)+" "+string(CommencementCandle));
+   //Print(__FUNCTION__+"End Candle is "+string(EndCandle));
    
-      Print(__FUNCTION__ + " - EndCandle is " + string(EndCandle));
-      Print(__FUNCTION__+string(CandleStar)+" "+string(EndCandle)+" "+string(CommencementCandle));
-      Print(__FUNCTION__+"End Candle is "+string(EndCandle));
-   
-   }
-      
    for(int i = 0; i <= EndCandle; i++){
          
       if(DebugMode == DebugOn){
@@ -332,7 +330,8 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
       } 
    
 }
-Print(__FUNCTION__" Passed");
+
+///Print(__FUNCTION__" Passed");
 
 return true;
 
