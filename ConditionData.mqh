@@ -237,13 +237,13 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
    
       CandleBodyLength = AverageCandleBodyLength();
       
-      Print(__FUNCTION__" ComparisonCandleBodyLength "+string(CandleBodyLength));
+      //Print(__FUNCTION__" ComparisonCandleBodyLength "+string(CandleBodyLength));
    
    } else {
    
       CandleBodyLength = (double)VolatilityCandleBodyLength;
       
-      Print(__FUNCTION__" ComparisonCandleBodyLength  "+string(CandleBodyLength));
+      //Print(__FUNCTION__" ComparisonCandleBodyLength  "+string(CandleBodyLength));
    
    }
    
@@ -251,7 +251,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
    double   CandleOpen[];
    double   CandleClose[];
    
- if (!ArrayResize(CandleOpen, EndCandle + 1) ||
+   if (!ArrayResize(CandleOpen, EndCandle + 1) ||
     
       !ArrayResize(CandleClose, EndCandle + 1) ||
        
@@ -329,7 +329,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
       
       } 
    
-}
+   }
 
 ///Print(__FUNCTION__" Passed");
 
