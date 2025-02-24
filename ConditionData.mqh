@@ -276,7 +276,7 @@ bool ResizeArrays(int ArrayLength){
 
 }
 
-bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCandle){
+bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
    
    CandleBodyLength = 0;
    
@@ -375,7 +375,7 @@ return true;
 }
 
 // --- Condition Check Function
-bool ConditionsCheck(int MarketDirection, int CandleStar, int EndCandle, int CommencementCandle){
+bool ConditionsCheck(int MarketDirection, int CandleStar, int EndCandle){
 
    // -- All bool functions are checked to ensure that each check return true, before returning to the calling programme.
    if(CheckMovingAverage(8,13,21,55,MarketDirection)){
@@ -388,9 +388,9 @@ bool ConditionsCheck(int MarketDirection, int CandleStar, int EndCandle, int Com
       && CheckSuspensionStatus()
       && CheckTradingHours()
       && CheckStandardDeviation()
-      && CandleBodyLengthAnalysis(CandleStar, EndCandle, CommencementCandle)){
+      && CandleBodyLengthAnalysis(CandleStar, EndCandle)){
          
-         if(!ExecuteMarketOrder(MarketDirection, CandleStar, EndCandle, CommencementCandle)){
+         if(!ExecuteMarketOrder(MarketDirection, CandleStar, EndCandle)){
          
             return false;
          
@@ -400,7 +400,7 @@ bool ConditionsCheck(int MarketDirection, int CandleStar, int EndCandle, int Com
       
       } 
                
-      SendConfirmationEmail(False, CandleStar, EndCandle, CommencementCandle);
+      SendConfirmationEmail(False, CandleStar, EndCandle);
       
       BarTime = Time[0];
             

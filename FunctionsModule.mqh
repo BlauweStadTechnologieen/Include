@@ -175,7 +175,7 @@ int GetDebugMode(){
       Print("Your UCID is "+string(UniqueChartIdentifier));
       
       Print("Now testing averaging candle body lengths....");
-      CandleBodyLengthAnalysis(PrimaryStar, PrimaryEnd, PrimaryComm);
+      CandleBodyLengthAnalysis(PrimaryStar, PrimaryEnd);
            
       int ExecuteTestRun = PopupMessaging("Initiate a Test Run","Greetings Grasshopper!\n\nWould you like to initiate test trading position?",MB_YESNO | MB_ICONQUESTION);
       
@@ -189,7 +189,7 @@ int GetDebugMode(){
                if (FinalExecuteTestRunConfirmation == 6){
                
                   // --- If you accept the FINAL confirmation, a test run will execute, complete with confirmation email.
-                  ExecuteMarketOrder(1,3,4,2);
+                  ExecuteMarketOrder(1,3,4);
                   // ---
          
                } else {

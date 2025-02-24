@@ -17,7 +17,7 @@
 //| return either a successful execution or a failed execution.                                                             |
 //+------------------------------------------------------------------+
 
-bool ExecuteMarketOrder(int OrderProperty, int CandleStar, int EndCandle, int CommencementCandle){
+bool ExecuteMarketOrder(int OrderProperty, int CandleStar, int EndCandle){
 
    double StopLossPrice     =  NormalizeDouble((StopLoss * Point),Digits);
    double TakeProfitPrice   =  NormalizeDouble(((StopLoss * RewardFactor) * Point),Digits);
@@ -121,7 +121,7 @@ bool ExecuteMarketOrder(int OrderProperty, int CandleStar, int EndCandle, int Co
       
       BarTime = Time[0];
                 
-      SendConfirmationEmail(True, CandleStar, EndCandle, CommencementCandle);
+      SendConfirmationEmail(True, CandleStar, EndCandle);
       
       return true;
       
