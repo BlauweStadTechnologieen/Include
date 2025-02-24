@@ -14,10 +14,8 @@
 
 double MovingAverage(int AveragingPeriod, int  AveragingMethod){
 
-   double ma = iMA(NULL,0,AveragingPeriod,0,AveragingMethod,0,1);
+   return iMA(NULL,0,AveragingPeriod,0,AveragingMethod,0,1);
    
-   return ma;
-
 }
 
 //--- Data Structures
@@ -163,6 +161,36 @@ bool CheckSuspensionStatus(){
 
 }
 
+int CheckSuspenstionOnInit(){
+
+   if(TempSuspension == 2 && NoTradeReason == 4){
+         
+      DiagnosticMessaging("Suspension Reason Not Set","You have not set a reason for the temporary suspension.");
+      
+      return(INIT_FAILED);
+   
+   } else if (TempSuspension == 1 && NoTradeReason != 4){
+   
+      DiagnosticMessaging("Suspension Reason Not Reset","You turned off temporary suspension, but you have not reset the reason.");
+  
+      return(INIT_FAILED);
+   
+   } else if (TempSuspension == 2 && NoTradeReason != 4){
+         
+      SuspendedChartObject("Currency Pair Suspended");
+      
+      TransactionMessage("Suspension Notice","This is a message to confirm that you have suspended the pair "+Symbol());
+      
+   } else {
+   
+      DeletePairSupensionNotice();
+         
+   }
+   
+   return (INIT_SUCCEEDED);
+   
+}   
+
 bool CheckTradingHours(){
 
    MqlDateTime timeLocStruct;
@@ -228,6 +256,25 @@ bool CheckAutomationStatus(){
 
 }
 
+bool ResizeArrays(int ArrayLength){
+
+   if(!ArrayResize(CandleHigh, ArrayLength + 1)||
+   !ArrayResize(CandleBody, ArrayLength + 1) ||
+   !ArrayResize(CandleClose, ArrayLength + 1) ||
+   !ArrayResize(CandleOpen, ArrayLength + 1) ||
+   !ArrayResize(CandleLow, ArrayLength + 1)){
+      
+      DiagnosticMessaging(__FUNCTION__" Array Resize Error", "There was an error in resize the data array");
+      
+      PrintDebugMessage(__FUNCTION__"Array Resize Error - There was an error is resizing the data array");
+   
+      return false;
+   
+   } 
+   
+   return true;
+
+}
 
 bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCandle){
    
@@ -247,10 +294,6 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
    
    }
    
-   double   CandleBody[];
-   double   CandleOpen[];
-   double   CandleClose[];
-   
    if (!ArrayResize(CandleOpen, EndCandle + 1) ||
     
       !ArrayResize(CandleClose, EndCandle + 1) ||
@@ -262,6 +305,12 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
          return false;
          
    }
+   
+   if(ResizeArrays(EndCandle)){
+   
+      return false;
+      
+   }   
    
    //Print(__FUNCTION__ + " - EndCandle is " + string(EndCandle));
    //Print(__FUNCTION__+string(CandleStar)+" "+string(EndCandle)+" "+string(CommencementCandle));
@@ -283,7 +332,11 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
  
       //Print(__FUNCTION__"Candle "+string(i)+" has a body of "+string(CandleBody[i])+" Avg Len "+string(CandleBodyLength));
       
-      if (CandleBody[i] == CandleBody[1]){
+      if(CandleBody[i] == CandleBody[0])
+         
+         continue;
+      
+      if(CandleBody[i] == CandleBody[1]){
       
          if(CurrencyPairInVolatileList()){ 
          
@@ -303,7 +356,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
       
       }
       
-      if(i == CandleStar){
+      if(CandleBody[i] == CandleBody[CandleStar]){
                            
          if(CandleBody[CandleStar] < (double)minimumHammerBody){
             
@@ -317,10 +370,6 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
          
       }
             
-      if(CandleBody[i] == CandleBody[0])
-         
-         continue; 
-      
       if(CandleBody[i] < CandleBodyLength){
                   
          //Print(__FUNCTION__," Candle Body Length #"+string(i));
