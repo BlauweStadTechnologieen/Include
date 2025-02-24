@@ -294,18 +294,6 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle, int CommencementCan
    
    }
    
-   if (!ArrayResize(CandleOpen, EndCandle + 1) ||
-    
-      !ArrayResize(CandleClose, EndCandle + 1) ||
-       
-      !ArrayResize(CandleBody, EndCandle + 1)){
-      
-         DiagnosticMessaging("Array Error","Unfortunately, there was an error in resizing your arrays within the function "__FUNCTION__);
-      
-         return false;
-         
-   }
-   
    if(ResizeArrays(EndCandle)){
    
       return false;
