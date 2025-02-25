@@ -258,11 +258,9 @@ bool CheckAutomationStatus(){
 
 bool ResizeArrays(int ArrayLength){
 
-   if(!ArrayResize(CandleHigh, ArrayLength + 1)||
-   !ArrayResize(CandleBody, ArrayLength + 1) ||
+   if(!ArrayResize(CandleBody, ArrayLength + 1) ||
    !ArrayResize(CandleClose, ArrayLength + 1) ||
-   !ArrayResize(CandleOpen, ArrayLength + 1) ||
-   !ArrayResize(CandleLow, ArrayLength + 1)){
+   !ArrayResize(CandleOpen, ArrayLength + 1)){
       
       DiagnosticMessaging(__FUNCTION__" Array Resize Error", "There was an error in resize the data array");
       
