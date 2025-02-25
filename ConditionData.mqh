@@ -262,9 +262,11 @@ bool ResizeArrays(int ArrayLength){
    !ArrayResize(CandleClose, ArrayLength + 1) ||
    !ArrayResize(CandleOpen, ArrayLength + 1)){
       
-      DiagnosticMessaging(__FUNCTION__" Array Resize Error", "There was an error in resize the data array");
+      string custom_message = "There was an error is resizing the data array";
       
-      PrintDebugMessage(__FUNCTION__"Array Resize Error - There was an error is resizing the data array");
+      DiagnosticMessaging(__FUNCTION__" Array Resize Error", custom_message);
+      
+      PrintDebugMessage(__FUNCTION__"Array Resize Error - "+custom_message);
    
       return false;
    
