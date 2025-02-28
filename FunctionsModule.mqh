@@ -252,5 +252,3 @@ int GetDebugMode(){
    return (INIT_SUCCEEDED);
    
 }
-
-  
