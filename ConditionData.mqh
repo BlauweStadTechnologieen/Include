@@ -46,16 +46,18 @@ bool CheckStandardDeviation(){
 
    MarketConditions Market;
    
-   Market.StandardDeviation = StDev;
+   Market.StandardDeviation = CalculatePriceStatisticalData(1);
    
    if(Market.StandardDeviation >= (double)MinimumStandardDeviation && Market.StandardDeviation <= (double)MaximumStandardDeviation){
    
+      //Print(__FUNCTION__" "+string(Market.StandardDeviation));
       //Print(__FUNCTION__ " PASS");
       
       return true;
    
    } 
    
+   //Print(__FUNCTION__" "+string(Market.StandardDeviation));
    //Print(__FUNCTION__ " FAIL");
    
    return false;
@@ -66,7 +68,7 @@ bool CheckRSquared(){
 
    MarketConditions Market;
    
-   Market.RSquared = RSq;
+   Market.RSquared = CalculatePriceStatisticalData(2);
    
    if(Market.RSquared >= (double)minRSquared && Market.RSquared <= (double)maxRSquared){
    
