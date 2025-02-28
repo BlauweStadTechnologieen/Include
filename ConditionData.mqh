@@ -294,7 +294,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
    
    }
    
-   if(ResizeArrays(EndCandle)){
+   if(!ResizeArrays(EndCandle)){
    
       return false;
       
