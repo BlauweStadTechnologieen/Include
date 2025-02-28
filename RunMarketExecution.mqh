@@ -128,7 +128,7 @@ bool ExecuteMarketOrder(int OrderProperty, int CandleStar, int EndCandle){
    } else {
    
       // --- If the OrderProperty cannot be deteramined, then an error message will be sent, returning an error code.
-      DiagnosticMessaging("Order Execution Error","The type of order could not be determined");
+      DiagnosticMessaging("Order Execution Error","The type of order could not be determined. Please confirm you have ordered a compliant order type.");
       
       return false;
    

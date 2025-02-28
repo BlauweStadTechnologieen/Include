@@ -159,13 +159,7 @@ bool CurrencyPairInVolatileList(){
 
 }
 
-void CheckCandleBodyLength(int StarCandle, int EndCandle){
 
-   Print("Insuffucient Candle Body Length "+string(StarCandle)+" "+string(EndCandle));
-
-   return;
-
-}
 
 int GetDebugMode(){
 
