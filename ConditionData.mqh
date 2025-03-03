@@ -285,11 +285,13 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
    
    CandleBodyLength = 0;
    
+   Print(__FUNCTION__" ComparisonCandleBodyLength "+string(PricingStats(3)));
+   
    if(PricingStats(3) >= (double)VolatilityCandleBodyLength){
    
       CandleBodyLength = PricingStats(3);
       
-      //Print(__FUNCTION__" ComparisonCandleBodyLength "+string(CandleBodyLength));
+      //Print(__FUNCTION__" ComparisonCandleBodyLength "+string(PricingStats(3)));
    
    } else {
    
