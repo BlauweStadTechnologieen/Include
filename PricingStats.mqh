@@ -11,7 +11,6 @@
 #include <CompanyData.mqh>
 #include <ConditionData.mqh>
 
-
 double AverageBody(int Count){
 
    ResizeArrays(Count);
@@ -102,7 +101,7 @@ double PricingStats(int Mode){
           RSq                       =  NormalizeDouble(MathPow(CorrelationCoefficient,2)*100,0);
           MarketBid                 =  Bid / Point;
           MarketAsk                 =  Ask / Point;
-          MarketSpread              =  MathAbs(MarketAsk - MarketBid);
+          MarketSpread              =  NormalizeDouble(MathAbs(MarketAsk - MarketBid),0);
    
    switch (Mode){
       

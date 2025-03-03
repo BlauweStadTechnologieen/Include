@@ -119,13 +119,13 @@ bool CheckMarketSpread(){
    
    if(Market.MarketSpread <= (double)MaximumSpread){
    
-      //Print(__FUNCTION__" PASS");
+      Print(__FUNCTION__" PASS");
       
       return true;
    
    }
    
-   //Print(__FUNCTION__" FAIL");
+   Print(__FUNCTION__" FAIL");
    
    return false;
 
@@ -284,21 +284,15 @@ bool ResizeArrays(int ArrayLength){
 bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
    
    CandleBodyLength = 0;
-   
-   Print(__FUNCTION__" ComparisonCandleBodyLength "+string(PricingStats(3)));
-   
+      
    if(PricingStats(3) >= (double)VolatilityCandleBodyLength){
    
       CandleBodyLength = PricingStats(3);
-      
-      //Print(__FUNCTION__" ComparisonCandleBodyLength "+string(PricingStats(3)));
-   
+         
    } else {
    
       CandleBodyLength = (double)VolatilityCandleBodyLength;
-      
-      //Print(__FUNCTION__" ComparisonCandleBodyLength  "+string(CandleBodyLength));
-   
+         
    }
    
    if(!ResizeArrays(EndCandle)){
@@ -306,10 +300,6 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
       return false;
       
    }   
-   
-   //Print(__FUNCTION__ + " - EndCandle is " + string(EndCandle));
-   //Print(__FUNCTION__+string(CandleStar)+" "+string(EndCandle)+" "+string(CommencementCandle));
-   //Print(__FUNCTION__+"End Candle is "+string(EndCandle));
    
    for(int i = 0; i <= EndCandle; i++){
          
@@ -324,9 +314,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
       CandleClose[i]  = iClose(CurrentChartSymbol, 0, i) / _Point;
         
       CandleBody[i]   = NormalizeDouble(MathAbs(CandleClose[i] - CandleOpen[i]), Digits);
- 
-      //Print(__FUNCTION__"Candle "+string(i)+" has a body of "+string(CandleBody[i])+" Avg Len "+string(CandleBodyLength));
-      
+       
       if(CandleBody[i] == CandleBody[0])
          
          continue;
@@ -336,9 +324,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
          if(CurrencyPairInVolatileList()){ 
          
             if(CandleBody[1] < (double)minimumHammerBody){
-                                          
-               //Print(__FUNCTION__," First Candle Failed #"+string(i));
-        
+                                                  
                return false;
             
             } 
@@ -354,9 +340,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
       if(CandleBody[i] == CandleBody[CandleStar]){
                            
          if(CandleBody[CandleStar] < (double)minimumHammerBody){
-            
-            //Print(__FUNCTION__," Candle Star Fail #"+string(i)+" "+string(CandleBody[CandleStar]));
-                        
+                                    
             return false;
       
          } 
@@ -366,16 +350,12 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
       }
             
       if(CandleBody[i] < CandleBodyLength){
-                  
-         //Print(__FUNCTION__," Candle Body Length #"+string(i));
-                  
+                                    
          return false;
       
       } 
    
    }
-
-///Print(__FUNCTION__" Passed");
 
 return true;
 
