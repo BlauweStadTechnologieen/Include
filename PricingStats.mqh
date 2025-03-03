@@ -11,6 +11,34 @@
 #include <CompanyData.mqh>
 #include <ConditionData.mqh>
 
+
+double AverageBody(int Count){
+
+   ResizeArrays(Count);
+   
+   double sum = 0;
+   
+   for (int i = 1; i <= Count; i++){
+   
+      CandleClose[i]        = iClose(Symbol(), 0, i) / Point;
+      CandleOpen[i]         = iOpen(Symbol(), 0, i) / Point;
+      CandleBody[i]         = NormalizeDouble(MathAbs(CandleClose[i] - CandleOpen[i]), Digits);
+      sum                  += CandleBody[i];
+      
+      Print("Body #"+string(i)+" "+string(CandleBody[i]));
+   
+   }
+   
+   double ave =  sum / Count;
+   
+   Print(__FUNCTION__" Count "+string(Count));
+   Print(__FUNCTION__" Sum "+string(sum));
+   Print(__FUNCTION__" Average "+string(ave));
+      
+   return ave;
+
+}
+
 double PricingStats(int Mode){
    
    ResizeArrays(ChartDataPeriods);
