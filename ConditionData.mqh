@@ -46,7 +46,6 @@ struct UserConditions{
 bool CheckStandardDeviation(){
 
    MarketConditions Market;
-   
    Market.StandardDeviation = PricingStats(1);
    
    Print(__FUNCTION__" "+string(Market.StandardDeviation));
