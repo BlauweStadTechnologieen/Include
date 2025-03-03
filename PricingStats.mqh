@@ -41,7 +41,13 @@ double AverageBody(int Count){
 
 double PricingStats(int Mode){
    
-   ResizeArrays(ChartDataPeriods);
+   if(!ResizeArrays(ChartDataPeriods)){
+   
+      PrintDebugMessage(__FUNCTION__"Resize Error");
+      
+      return 0;
+   
+   }
    
    double   SumCandleLengths                 = 0;
    double   SumOfPeriods                     = 0;
