@@ -95,7 +95,7 @@ double PricingStats(int Mode){
    double sqrtSumTimeMinusAvgPow2   =  sqrt(SumTimeMinusAvgPow2 / (ChartDataPeriods - 1));
    double sqrtSumPriceMinusAvgPow2  =  sqrt(SumPriceMinusAvgPow2 / (ChartDataPeriods - 1));
    double Variance                  =  SumTimePriceAverage / (ChartDataPeriods - 1);
-   double CoVariance                =  (sqrtSumTimeMinusAvgPow2 * sqrtSumPriceMinusAvgPow2);
+   double CoVariance                =  sqrtSumTimeMinusAvgPow2 * sqrtSumPriceMinusAvgPow2;
    double CorrelationCoefficient    =  NormalizeDouble((Variance / CoVariance),2);
           AverageCandleBodyLength   =  NormalizeDouble((SumCandleLengths  / ChartDataPeriods),0);
           StandardDeviation         =  NormalizeDouble(sqrtSumPriceMinusAvgPow2  / Point,0);
