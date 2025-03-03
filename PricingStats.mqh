@@ -31,7 +31,7 @@ double PricingStats(int Mode){
    double   MarketAsk                        = 0;
             MarketSpread                     = 0;
    
-   for (int i = 0; i < ChartDataPeriods; i++){
+   for (int i = 1; i < ChartDataPeriods; i++){
    
       TimeByPeriod[i]         = double(ulong(ulong(Time[i])));
       PriceByPeriod[i]        = Open[i];
@@ -42,7 +42,7 @@ double PricingStats(int Mode){
    
    double AverageTimeByPeriod = TimeByPeriodSum / ChartDataPeriods;
    
-   for (int i = 0; i < ChartDataPeriods; i++) {
+   for (int i = 1; i < ChartDataPeriods; i++) {
       
       SumTimeMinusAvg      += (TimeByPeriod[i] - AverageTimeByPeriod);
       SumPriceMinusAvg     += (PriceByPeriod[i] - RollingAveragePrice);
@@ -66,14 +66,14 @@ double PricingStats(int Mode){
           AverageCandleBodyLength   =  NormalizeDouble((SumCandleLengths  / ChartDataPeriods),0);
           StandardDeviation         =  NormalizeDouble(sqrtSumPriceMinusAvgPow2  / Point,0);
           RSq                       =  NormalizeDouble(MathPow(CorrelationCoefficient,2)*100,0);
-          MarketBid                 =  Bid;
-          MarketAsk                 =  Ask;
+          MarketBid                 =  Bid / Point;
+          MarketAsk                 =  Ask / Point;
           MarketSpread              =  MathAbs(MarketAsk - MarketBid);
    
    switch (Mode){
       case 1:
          
-         Print(__FUNCTION__" Standard Deviation "+string(StandardDeviation));
+         //Print(__FUNCTION__" Standard Deviation "+string(StandardDeviation));
          
          return StandardDeviation;
          
@@ -81,14 +81,14 @@ double PricingStats(int Mode){
          
       case 2:
          
-         Print(__FUNCTION__" RSQ "+string(RSq));
+         //Print(__FUNCTION__" RSQ "+string(RSq));
          
          return RSq;
          
          break;
       case 3:
          
-         Print(__FUNCTION__" Ave Candle Body Length "+string(AverageCandleBodyLength));
+         //Print(__FUNCTION__" Ave Candle Body Length "+string(AverageCandleBodyLength));
          
          return AverageCandleBodyLength;
          
@@ -96,7 +96,7 @@ double PricingStats(int Mode){
          
       case 4:
          
-         Print(__FUNCTION__"Market Spread "+string(MarketSpread));
+         //Print(__FUNCTION__"Market Spread "+string(MarketSpread));
          
          return MarketSpread;  
          
