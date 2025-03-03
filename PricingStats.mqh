@@ -72,23 +72,42 @@ double PricingStats(int Mode){
    
    switch (Mode){
       case 1:
+         
          Print(__FUNCTION__" Standard Deviation "+string(StandardDeviation));
+         
          return StandardDeviation;
+         
          break;
+         
       case 2:
+         
          Print(__FUNCTION__" RSQ "+string(RSq));
+         
          return RSq;
+         
          break;
       case 3:
+         
          Print(__FUNCTION__" Ave Candle Body Length "+string(AverageCandleBodyLength));
+         
          return AverageCandleBodyLength;
+         
          break;
+         
       case 4:
+         
          Print(__FUNCTION__"Market Spread "+string(MarketSpread));
-         return MarketSpread;   
-      default:
-         return -1;
+         
+         return MarketSpread;  
+         
          break;
+          
+      default:
+         
+         return -1;
+         
+         break;
+         
    }
 
    return Mode;
