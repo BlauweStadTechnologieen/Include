@@ -99,6 +99,7 @@ double PricingStats(int Mode){
           MarketSpread              =  MathAbs(MarketAsk - MarketBid);
    
    switch (Mode){
+      
       case 1:
          
          //Print(__FUNCTION__" Standard Deviation "+string(StandardDeviation));
@@ -114,6 +115,7 @@ double PricingStats(int Mode){
          return RSq;
          
          break;
+      
       case 3:
          
          //Print(__FUNCTION__" Ave Candle Body Length "+string(AverageCandleBodyLength));

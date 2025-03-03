@@ -159,8 +159,6 @@ bool CurrencyPairInVolatileList(){
 
 }
 
-
-
 int GetDebugMode(){
 
    if(DebugMode == DebugOn){  
