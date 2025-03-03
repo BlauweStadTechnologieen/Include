@@ -31,7 +31,7 @@ double PricingStats(int Mode){
    double   MarketAsk                        = 0;
             MarketSpread                     = 0;
    
-   for (int i = 1; i < ChartDataPeriods; i++){
+   for (int i = 0; i < ChartDataPeriods; i++){
    
       TimeByPeriod[i]         = double(ulong(ulong(Time[i])));
       PriceByPeriod[i]        = Open[i];
@@ -42,7 +42,7 @@ double PricingStats(int Mode){
    
    double AverageTimeByPeriod = TimeByPeriodSum / ChartDataPeriods;
    
-   for (int i = 1; i < ChartDataPeriods; i++) {
+   for (int i = 0; i < ChartDataPeriods; i++) {
       
       SumTimeMinusAvg      += (TimeByPeriod[i] - AverageTimeByPeriod);
       SumPriceMinusAvg     += (PriceByPeriod[i] - RollingAveragePrice);
