@@ -11,6 +11,7 @@
 #include <FunctionsModule.mqh> 
 #include <ChartData.mqh> 
 #include <RunMarketExecution.mqh>
+#include <PricingStats.mqh>
 
 double MovingAverage(int AveragingPeriod, int  AveragingMethod){
 
@@ -46,7 +47,9 @@ bool CheckStandardDeviation(){
 
    MarketConditions Market;
    
-   Market.StandardDeviation = CalculatePriceStatisticalData(1);
+   Market.StandardDeviation = PricingStats(1);
+   
+   Print(__FUNCTION__" "+string(Market.StandardDeviation));
    
    if(Market.StandardDeviation >= (double)MinimumStandardDeviation && Market.StandardDeviation <= (double)MaximumStandardDeviation){
    
@@ -67,8 +70,7 @@ bool CheckStandardDeviation(){
 bool CheckRSquared(){
 
    MarketConditions Market;
-   
-   Market.RSquared = CalculatePriceStatisticalData(2);
+   Market.RSquared = PricingStats(2);
    
    if(Market.RSquared >= (double)minRSquared && Market.RSquared <= (double)maxRSquared){
    
@@ -112,10 +114,9 @@ bool ExposureCheck(){
 bool CheckMarketSpread(){
 
    MarketConditions Market;
+   Market.MarketSpread  = PricingStats(4);
    
-   Market.MarketBid     = Bid;
-   Market.MarketAsk     = Ask;
-   Market.MarketSpread  = NormalizeDouble((Market.MarketAsk - Market.MarketBid)/_Point,0);
+   Print(__FUNCTION__" "+string(Market.MarketSpread));
    
    if(Market.MarketSpread <= (double)MaximumSpread){
    
@@ -262,7 +263,10 @@ bool ResizeArrays(int ArrayLength){
 
    if(!ArrayResize(CandleBody, ArrayLength + 1) ||
    !ArrayResize(CandleClose, ArrayLength + 1) ||
-   !ArrayResize(CandleOpen, ArrayLength + 1)){
+   !ArrayResize(CandleOpen, ArrayLength + 1)||
+   !ArrayResize(TimeByPeriod, ArrayLength + 1)||
+   !ArrayResize(PriceByPeriod, ArrayLength + 1)||
+   !ArrayResize(TimeByPeriodPower, ArrayLength + 1)){
       
       string custom_message = "There was an error is resizing the data array";
       
@@ -282,9 +286,9 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
    
    CandleBodyLength = 0;
    
-   if(AverageCandleBodyLength() >= (double)VolatilityCandleBodyLength){
+   if(PricingStats(3) >= (double)VolatilityCandleBodyLength){
    
-      CandleBodyLength = AverageCandleBodyLength();
+      CandleBodyLength = PricingStats(3);
       
       //Print(__FUNCTION__" ComparisonCandleBodyLength "+string(CandleBodyLength));
    
