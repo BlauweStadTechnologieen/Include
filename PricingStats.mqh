@@ -52,12 +52,12 @@ double PricingStats(int Mode){
    double   SumOfPeriods                     = 0;
    double   RollingAveragePrice              = iMA(NULL, 0, ChartDataPeriods, 0, ENUM_MA_METHOD(ChartDataMAMethod), PRICE_OPEN, 0);
    double   SumTimeMinusAvg                  = 0;
-   //double   SumPriceMinusAvg                 = 0;
+   double   SumPriceMinusAvg                 = 0;
    double   SumTimePriceAverage              = 0;
-   double   SumTimeSquared                   = 0;
-   double   SumTimePriceProduct              = 0;
-   double   SumPriceMinusAvgPow2             = 0;
-   double   SumTimeMinusAvgPow2              = 0;
+   //double   SumTimeSquared                   = 0;
+   //double   SumTimePriceProduct              = 0;
+   double   SumPriceMinusAvgPower             = 0;
+   double   SumTimeMinusAvgPower             = 0;
    double   TimeByPeriodSum                  = 0;
    double   AverageCandleBodyLength          = 0;
    double   MarketBid                        = 0;
@@ -77,22 +77,24 @@ double PricingStats(int Mode){
    
    for (int i = 1; i <= ChartDataPeriods; i++) {
       
-      SumTimeMinusAvg      = (TimeByPeriod[i] - AverageTimeByPeriod);
-      //SumPriceMinusAvg     += (PriceByPeriod[i] - RollingAveragePrice);
-      SumTimePriceAverage  += (SumTimeMinusAvg * (PriceByPeriod[i] - RollingAveragePrice));
+      
       //SumTimeSquared       += TimeByPeriodPower[i];
       //SumTimePriceProduct  += TimeByPeriod[i] * PriceByPeriod[i];
-      SumPriceMinusAvgPow2 += MathPow(PriceByPeriod[i] - RollingAveragePrice, 2);
-      SumTimeMinusAvgPow2  += MathPow(TimeByPeriod[i] - AverageTimeByPeriod,2);
-      CandleClose[i]        = iClose(Symbol(), 0, i) / Point;
-      CandleOpen[i]         = iOpen(Symbol(), 0, i) / Point;
-      CandleBody[i]         = NormalizeDouble(MathAbs(CandleClose[i] - CandleOpen[i]), Digits);
-      SumCandleLengths     += CandleBody[i];
+      
+      SumTimeMinusAvg         = (TimeByPeriod[i] - AverageTimeByPeriod);
+      SumPriceMinusAvg        = (PriceByPeriod[i] - RollingAveragePrice);
+      SumCandleLengths       += CandleBody[i];
+      SumTimePriceAverage    += (SumTimeMinusAvg * SumPriceMinusAvg);
+      SumPriceMinusAvgPower  += MathPow(SumPriceMinusAvg, 2);
+      SumTimeMinusAvgPower   += MathPow(SumTimeMinusAvg,2);
+      CandleClose[i]          = iClose(Symbol(), 0, i) / Point;
+      CandleOpen[i]           = iOpen(Symbol(), 0, i) / Point;
+      CandleBody[i]           = NormalizeDouble(MathAbs(CandleClose[i] - CandleOpen[i]), Digits);
    
    }
    
-   double sqrtSumTimeMinusAvgPow2   =  sqrt(SumTimeMinusAvgPow2 / (ChartDataPeriods - 1));
-   double sqrtSumPriceMinusAvgPow2  =  sqrt(SumPriceMinusAvgPow2 / (ChartDataPeriods - 1));
+   double sqrtSumTimeMinusAvgPow2   =  sqrt(SumTimeMinusAvgPower/ (ChartDataPeriods - 1));
+   double sqrtSumPriceMinusAvgPow2  =  sqrt(SumPriceMinusAvgPower / (ChartDataPeriods - 1));
    double Variance                  =  SumTimePriceAverage / (ChartDataPeriods - 1);
    double CoVariance                =  sqrtSumTimeMinusAvgPow2 * sqrtSumPriceMinusAvgPow2;
    double CorrelationCoefficient    =  NormalizeDouble((Variance / CoVariance),2);
