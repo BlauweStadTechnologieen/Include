@@ -52,7 +52,7 @@ double PricingStats(int Mode){
    double   SumOfPeriods                     = 0;
    double   RollingAveragePrice              = iMA(NULL, 0, ChartDataPeriods, 0, ENUM_MA_METHOD(ChartDataMAMethod), PRICE_OPEN, 0);
    double   SumTimeMinusAvg                  = 0;
-   double   SumPriceMinusAvg                 = 0;
+   //double   SumPriceMinusAvg                 = 0;
    double   SumTimePriceAverage              = 0;
    double   SumTimeSquared                   = 0;
    double   SumTimePriceProduct              = 0;
@@ -64,7 +64,7 @@ double PricingStats(int Mode){
    double   MarketAsk                        = 0;
             MarketSpread                     = 0;
    
-   for (int i = 0; i < ChartDataPeriods; i++){
+   for (int i = 1; i <= ChartDataPeriods; i++){
    
       TimeByPeriod[i]         = double(ulong(ulong(Time[i])));
       PriceByPeriod[i]        = Open[i];
@@ -75,13 +75,13 @@ double PricingStats(int Mode){
    
    double AverageTimeByPeriod = TimeByPeriodSum / ChartDataPeriods;
    
-   for (int i = 0; i < ChartDataPeriods; i++) {
+   for (int i = 1; i <= ChartDataPeriods; i++) {
       
-      SumTimeMinusAvg      += (TimeByPeriod[i] - AverageTimeByPeriod);
-      SumPriceMinusAvg     += (PriceByPeriod[i] - RollingAveragePrice);
-      SumTimePriceAverage  += (TimeByPeriod[i] - AverageTimeByPeriod) * (PriceByPeriod[i] - RollingAveragePrice);
-      SumTimeSquared       += TimeByPeriodPower[i];
-      SumTimePriceProduct  += TimeByPeriod[i] * PriceByPeriod[i];
+      SumTimeMinusAvg      = (TimeByPeriod[i] - AverageTimeByPeriod);
+      //SumPriceMinusAvg     += (PriceByPeriod[i] - RollingAveragePrice);
+      SumTimePriceAverage  += (SumTimeMinusAvg * (PriceByPeriod[i] - RollingAveragePrice));
+      //SumTimeSquared       += TimeByPeriodPower[i];
+      //SumTimePriceProduct  += TimeByPeriod[i] * PriceByPeriod[i];
       SumPriceMinusAvgPow2 += MathPow(PriceByPeriod[i] - RollingAveragePrice, 2);
       SumTimeMinusAvgPow2  += MathPow(TimeByPeriod[i] - AverageTimeByPeriod,2);
       CandleClose[i]        = iClose(Symbol(), 0, i) / Point;
