@@ -93,56 +93,6 @@ void DeletePairSupensionNotice(){
 
 }
 
-void PrintTransactionEvent(string LoggingMessage){
-
-   if (DebugMode == DebugOn){
-   
-      if(!MessageSent){
-      
-         Print(LoggingMessage);
-         
-         MessageSent = True;
-      
-      }
-   
-   }
-   
-   return;
-   
-}
-
-void PrintDebugMessage(string DebugMessage){
-
-   if(DebugMode == DebugOn){
-   
-      if(!MessageSent){
-         
-         Print("Debug Message: "+DebugMessage);
-         
-         MessageSent = True;
-      
-      }
-   
-   }
-   
-   return;
-
-}
-
-void LiveDebugMessage(string DebugMessage){
-
-   if(!MessageSent){
-   
-      Print("Live Debug Message: "+DebugMessage+" Reinitialise System Now.");
-   
-      MessageSent = True;
-   
-   }
-   
-   return;
-
-}
-
 bool CurrencyPairInVolatileList(){
 
    int   JPYPresent     =  StringFind(CurrentChartSymbol,"JPY",0);
@@ -202,7 +152,7 @@ int GetDebugMode(){
                
       }
       
-      TransactionMessage("Platform Set to Test Mode","You have set the platform to DEBUG mode. If this was intentional, you can disregard this message.");
+      Print("Platform Set to Test Mode","You have set the platform to DEBUG mode. If this was intentional, you can disregard this message.");
       
       ChartButtonStaticAttributes();
    

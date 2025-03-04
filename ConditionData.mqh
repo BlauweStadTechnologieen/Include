@@ -51,17 +51,11 @@ bool CheckStandardDeviation(){
    Print(__FUNCTION__" "+string(Market.StandardDeviation));
    
    if(Market.StandardDeviation >= (double)MinimumStandardDeviation && Market.StandardDeviation <= (double)MaximumStandardDeviation){
-   
-      //Print(__FUNCTION__" "+string(Market.StandardDeviation));
-      //Print(__FUNCTION__ " PASS");
-      
+         
       return true;
    
    } 
-   
-   //Print(__FUNCTION__" "+string(Market.StandardDeviation));
-   //Print(__FUNCTION__ " FAIL");
-   
+      
    return false;
 
 }
@@ -72,15 +66,11 @@ bool CheckRSquared(){
    Market.RSquared = PricingStats(2);
    
    if(Market.RSquared >= (double)minRSquared && Market.RSquared <= (double)maxRSquared){
-   
-      //Print(__FUNCTION__" PASS");
-      
+         
       return true;
    
    } 
-   
-   //Print(__FUNCTION__" FAIL");
-   
+      
    return false;
 
 }
@@ -97,15 +87,11 @@ bool ExposureCheck(){
    
    if(PositionMarginLevelCheck > brokerMarginLevel
    && Exposure.PositionsTotal < 1){
-   
-      //Print(__FUNCTION__" PASS");
-      
+         
       return true;
    
    }
-   
-   //Print(__FUNCTION__" FAIL");
-   
+      
    return false;
 
 }
@@ -114,19 +100,13 @@ bool CheckMarketSpread(){
 
    MarketConditions Market;
    Market.MarketSpread  = PricingStats(4);
-   
-   Print(__FUNCTION__" "+string(Market.MarketSpread));
-   
-   if(Market.MarketSpread <= (double)MaximumSpread){
-   
-      Print(__FUNCTION__" PASS");
       
+   if(Market.MarketSpread <= (double)MaximumSpread){
+         
       return true;
    
    }
-   
-   Print(__FUNCTION__" FAIL");
-   
+      
    return false;
 
 }
@@ -134,15 +114,11 @@ bool CheckMarketSpread(){
 bool CheckDebugMode(){
 
    if(DebugMode == DebugOff){
-   
-      //Print(__FUNCTION__" PASS");
-      
+         
       return true;
    
    }
-   
-   //Print(__FUNCTION__" FAIL");
-   
+      
    return false;
 
 }
@@ -150,15 +126,11 @@ bool CheckDebugMode(){
 bool CheckSuspensionStatus(){
 
    if(TempSuspension != TemporarySuspension && NoTradeReason == NoSuspension){
-   
-      //Print(__FUNCTION__" PASS");
-      
+         
       return true;
    
    }
-   
-   //Print(__FUNCTION__" FAIL");
-   
+      
    return false;
 
 }
@@ -181,7 +153,7 @@ int CheckSuspenstionOnInit(){
          
       SuspendedChartObject("Currency Pair Suspended");
       
-      TransactionMessage("Suspension Notice","This is a message to confirm that you have suspended the pair "+Symbol());
+      PrintDebugMessage("This is a message to confirm that you have suspended the pair "+Symbol());
       
    } else {
    
@@ -199,15 +171,11 @@ bool CheckTradingHours(){
    TimeToStruct(TimeLocal(), timeLocStruct);
    
    if(timeLocStruct.hour >= startingHour && timeLocStruct.hour < endingHour){
-   
-      //Print(__FUNCTION__" PASS");
-      
+         
       return true;
    
    }
-   
-   //Print(__FUNCTION__" FAIL");
-   
+      
    return false;
 
 }
@@ -303,12 +271,6 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
    
    for(int i = 0; i <= EndCandle; i++){
          
-      if(DebugMode == DebugOn){
-      
-         Print(__FUNCTION__ + " Loop iteration i = " + string(i));
-      
-      }
-      
       CandleOpen[i]   = iOpen(CurrentChartSymbol, 0, i) / _Point;
         
       CandleClose[i]  = iClose(CurrentChartSymbol, 0, i) / _Point;
