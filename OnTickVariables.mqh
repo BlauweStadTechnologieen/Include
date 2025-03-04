@@ -31,7 +31,6 @@ void OnTickVariables(){
    RemainingMargin         =  CurrentFreeMargin - OrderMarginRequirement;
    _AccountEquity          =  AccountEquity();
    AverageCandleBodyLen    =  0;  
-   AverageCandleRangeLen   =  0; 
    //+------------------------------------------------------------------+
    //|int                                                               
    //+------------------------------------------------------------------+
