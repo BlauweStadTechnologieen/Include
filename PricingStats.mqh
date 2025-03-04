@@ -126,9 +126,7 @@ double PricingStats(int Mode){
          break;
          
       case 4:
-         
-         //Print(__FUNCTION__"Market Spread "+string(MarketSpread));
-         
+                  
          return MarketSpread;  
          
          break;
