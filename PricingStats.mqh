@@ -44,7 +44,7 @@ double PricingStats(int Mode){
    
       PrintDebugMessage(__FUNCTION__"Resize Error");
       
-      return 0;
+      return -1;
    
    }
    
@@ -83,13 +83,13 @@ double PricingStats(int Mode){
       
       SumTimeMinusAvg         = (TimeByPeriod[i] - AverageTimeByPeriod);
       SumPriceMinusAvg        = (PriceByPeriod[i] - RollingAveragePrice);
+      CandleClose[i]          = iClose(Symbol(), 0, i) / Point;
+      CandleOpen[i]           = iOpen(Symbol(), 0, i) / Point;
+      CandleBody[i]           = NormalizeDouble(MathAbs(CandleClose[i] - CandleOpen[i]), Digits);
       SumCandleLengths       += CandleBody[i];
       SumTimePriceAverage    += (SumTimeMinusAvg * SumPriceMinusAvg);
       SumPriceMinusAvgPower  += MathPow(SumPriceMinusAvg, 2);
       SumTimeMinusAvgPower   += MathPow(SumTimeMinusAvg,2);
-      CandleClose[i]          = iClose(Symbol(), 0, i) / Point;
-      CandleOpen[i]           = iOpen(Symbol(), 0, i) / Point;
-      CandleBody[i]           = NormalizeDouble(MathAbs(CandleClose[i] - CandleOpen[i]), Digits);
    
    }
    
