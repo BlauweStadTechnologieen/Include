@@ -10,7 +10,6 @@
 #include <GlobalNamespace.mqh>
 #include <ConfirmationMessage.mqh>
 #include <EmailLegalDisclaimer.mqh>
-#include <CompanyData.mqh>
 
 //+------------------------------------------------------------------+
 //|This module will run the market(spot)execution module, and will

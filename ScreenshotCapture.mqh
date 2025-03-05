@@ -9,7 +9,6 @@
 #include <GlobalNamespace.mqh>
 #include <EmailLegalDisclaimer.mqh>
 #include <MessagesModule.mqh>
-#include <CompanyData.mqh>
 
 string ScreenShotCaptureURL(int ScreenShotID){
    

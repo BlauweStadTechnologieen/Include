@@ -8,8 +8,6 @@
 #property strict
 
 #include <GlobalNamespace.mqh>
-#include <ConfirmationMessage.mqh>
-#include <ExecutionDiagnostics.mqh>
 
 void RunDiagnostics(){
                                                             

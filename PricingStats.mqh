@@ -7,8 +7,6 @@
 #property link      "https://www.mql5.com"
 #property strict
 #include <GlobalNamespace.mqh>
-#include <MessagesModule.mqh>
-#include <CompanyData.mqh>
 #include <ConditionData.mqh>
 
 double AverageBody(int Count){

@@ -7,9 +7,8 @@
 #property link      "https://www.mql5.com"
 #property strict
 #include <GlobalNamespace.mqh>
-#include <RunDiagnostics.mqh> 
-#include <FunctionsModule.mqh> 
-#include <ChartData.mqh> 
+//#include <FunctionsModule.mqh> 
+//#include <ChartData.mqh> 
 #include <RunMarketExecution.mqh>
 #include <PricingStats.mqh>
 
