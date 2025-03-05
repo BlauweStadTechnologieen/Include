@@ -319,7 +319,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
    
    }
 
-return true;
+   return true;
 
 }
 
