@@ -115,9 +115,6 @@ int GetDebugMode(){
             
       Print("Generating UCID from OnInit()...");
       Print("Your UCID is "+string(UniqueChartIdentifier));
-      
-      Print("Now testing averaging candle body lengths....");
-      CandleBodyLengthAnalysis(PrimaryStar, PrimaryEnd);
            
       int ExecuteTestRun = PopupMessaging("Initiate a Test Run","Greetings Grasshopper!\n\nWould you like to initiate test trading position?",MB_YESNO | MB_ICONQUESTION);
       
