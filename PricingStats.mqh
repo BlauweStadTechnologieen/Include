@@ -8,6 +8,7 @@
 #property strict
 #include <GlobalNamespace.mqh>
 #include <ConditionData.mqh>
+#include <MessagesModule.mqh>
 
 double AverageBody(int Count){
 
@@ -58,9 +59,7 @@ double PricingStats(int Mode){
    double   SumTimeMinusAvg                  = 0;
    double   SumPriceMinusAvg                 = 0;
    double   SumTimePriceAverage              = 0;
-   //double   SumTimeSquared                   = 0;
-   //double   SumTimePriceProduct              = 0;
-   double   SumPriceMinusAvgPower             = 0;
+   double   SumPriceMinusAvgPower            = 0;
    double   SumTimeMinusAvgPower             = 0;
    double   TimeByPeriodSum                  = 0;
    double   AverageCandleBodyLength          = 0;
