@@ -13,7 +13,13 @@
 
 double AverageBody(int Count){
 
-   ResizeArrays(Count);
+   if(!ResizeArrays(Count)){
+   
+      PrintDebugMessage(__FUNCTION__" Error in resizing arrays");
+      
+      return -1;
+   
+   }
    
    double sum = 0;
    
