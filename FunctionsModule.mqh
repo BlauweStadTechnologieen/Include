@@ -9,6 +9,8 @@
 #include <MessagesModule.mqh>
 #include <GlobalNamespace.mqh>
 #include <ConfirmationMessage.mqh>
+#include <ChartButtonFluidAttrs.mqh>
+#include <ChartButtonStaticAttrs.mqh>
 
 double OrderTransactionCost(double &TransactionCostItem[], int NumberOfItems){
 
@@ -166,15 +168,13 @@ int GetDebugMode(){
          
             if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES)){
                
-               if(_OrderMagicNumber == UniqueChartIdentifier){
-               
-                  ChartButtonStaticAttributes();
-               
-               } else {
+               if(_OrderMagicNumber != UniqueChartIdentifier){
                
                   continue;
+                  
+               } 
                
-               }
+               ChartButtonStaticAttributes();
             
             } else {
             
@@ -197,3 +197,92 @@ int GetDebugMode(){
    return (INIT_SUCCEEDED);
    
 }
+
+void CetPositionInfo(){
+
+   for(int i = PositionsTotal - 1; i >= 0; i--){
+      
+      if(OrderSelect(i, SELECT_BY_POS, MODE_TRADES)){
+            
+         if(_OrderSymbol != CurrentChartSymbol){
+         
+            continue;
+         
+         }
+         
+         if(_OrderMagicNumber != UniqueChartIdentifier){
+            
+            continue;
+            
+         } 
+         
+         ChartButtonFluidAttributes(clrGreen,clrCrimson,clrGray);
+            
+         AutomatedBreakeven();
+          
+      } else {
+         
+         DiagnosticMessaging("Order Selection Error","We were unable to select the order from the ledger");
+          
+         break;
+   
+      }
+      
+   } 
+   
+}
+
+bool AutomatedBreakevenExecution(double ModifiedStopLoss){
+ 
+   _OrderTakeProfit =  OrderTakeProfit();
+   WebColors        =  clrDarkGoldenrod;
+      
+   if(!OrderModify(_OrderTicket,_OrderOpenPrice,ModifiedStopLoss,_OrderTakeProfit,0,WebColors)){
+   
+      DiagnosticMessaging("Order Modification Error",__FUNCTION__" Unfortunately, there was an error in modifying order #"+string(_OrderTicket));
+   
+      return false;
+   
+   }
+      
+   return true;
+
+}
+
+void AutomatedBreakeven(){
+      
+   double _Ask             =  Ask;
+   double _Bid             =  Bid;
+          _OrderOpenPrice  =  OrderOpenPrice();
+          _OrderStopLoss   =  OrderStopLoss();
+      
+   if(_OrderOpenPrice != _OrderStopLoss){
+   
+      double BreakevenPrice   = 0;
+      
+      if(OrderType() == OP_BUY){
+      
+         BreakevenPrice = NormalizeDouble(_OrderOpenPrice + (breakeven * Point), Digits);
+          
+         if(_Bid > BreakevenPrice){
+         
+            AutomatedBreakevenExecution(_OrderOpenPrice);
+         
+         }
+      
+      } else if (OrderType()  == OP_SELL){
+      
+         BreakevenPrice = NormalizeDouble(_OrderOpenPrice - (breakeven * Point), Digits);
+         
+         if(_Ask < BreakevenPrice){
+         
+            AutomatedBreakevenExecution(_OrderOpenPrice);
+         
+         }
+      
+      }
+      
+   }
+
+}
+
