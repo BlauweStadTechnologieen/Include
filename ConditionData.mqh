@@ -323,6 +323,9 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
 
 }
 
+
+
+
 // --- Condition Check Function
 bool ConditionsCheck(int MarketDirection, int CandleStar, int EndCandle){
 
