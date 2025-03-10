@@ -277,11 +277,11 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
         
       CandleBody[i]   = NormalizeDouble(MathAbs(CandleClose[i] - CandleOpen[i]), Digits);
        
-      if(CandleBody[i] == CandleBody[0])
+      if(i == 0)
          
          continue;
       
-      if(CandleBody[i] == CandleBody[1]){
+      if(i == 1){
       
          if(CurrencyPairInVolatileList()){ 
          
@@ -299,24 +299,24 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
       
       }
       
-      if(CandleBody[i] == CandleBody[CandleStar]){
+      if(i == CandleStar){
                            
          if(CandleBody[CandleStar] < (double)minimumHammerBody){
                                     
             return false;
       
          } 
-         
+                  
          continue;
          
       }
             
       if(CandleBody[i] < CandleBodyLength){
-                                    
+                                             
          return false;
       
       } 
-   
+         
    }
 
    return true;
