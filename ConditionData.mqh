@@ -284,32 +284,32 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
          continue;
       
       if(i == 1){
-      
-         Print("You should see this");
-         
-         if(CurrencyPairInVolatileList()){ 
-         
-            Print(__FUNCTION__" Minumum Hammer Body "+string(minimumHammerBody));
-            
-            if(CandleBody[1] < (double)minimumHammerBody){
-                                                  
-               Print(__FUNCTION__" Minumum Hammer Body "+string(minimumHammerBody));
-               Print(__FUNCTION__" Candle Volatile Pair (False) #"+string(i)+" CandleBody "+string(CandleBody[i])+" < "+string(minimumHammerBody));
                
-               return false;
-            
-            } 
-            
-            Print(__FUNCTION__" Candle Volatile Pair (True) #"+string(i)+" CandleBody "+string(CandleBody[i])+" >= "+string(minimumHammerBody));
+         if(!CurrencyPairInVolatileList()){
          
-         } else {
-         
-            Print(__FUNCTION__" Candle Volatile Pair (Neutral) #"+string(i)+" CandleBody "+string(CandleBody[i]));
+            Print(__FUNCTION__" Not in a volatime currency pair");
             
             continue;
          
          }
-      
+         
+         Print(__FUNCTION__" Volatile Pair is present");
+         
+         Print(__FUNCTION__" Minumum Hammer Body "+string(minimumHammerBody));
+            
+         if(CandleBody[i] < (double)minimumHammerBody){
+                                                  
+            Print(__FUNCTION__" Minumum Hammer Body "+string(minimumHammerBody));
+            Print(__FUNCTION__" Candle Volatile Pair (False) #"+string(i)+" CandleBody "+string(CandleBody[i])+" < "+string(minimumHammerBody));
+            
+            return false;
+         
+         } 
+         
+         Print(__FUNCTION__" Candle Volatile Pair (True) #"+string(i)+" CandleBody "+string(CandleBody[i])+" >= "+string(minimumHammerBody));
+         
+         continue;
+         
       }
       
       if(i == CandleStar){
@@ -322,7 +322,7 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
       
          } 
          
-         Print(__FUNCTION__" Candle (False) #"+string(i)+" CandleStar "+string(CandleBody[CandleStar])+" "+string(CandleStar)+" "+string(CandleBody[i])+" >= "+string(minimumHammerBody));
+         Print(__FUNCTION__" Candle (True) #"+string(i)+" CandleStar "+string(CandleBody[CandleStar])+" "+string(CandleStar)+" "+string(CandleBody[i])+" >= "+string(minimumHammerBody));
                   
          continue;
          
@@ -330,13 +330,13 @@ bool CandleBodyLengthAnalysis(int CandleStar, int EndCandle){
             
       if(CandleBody[i] < CandleBodyLength){
                                              
-         Print(__FUNCTION__" CandleBody (False) #"+string(i)+" "+string(CandleBody[i])+" < "+string(CandleBodyLength));
+         Print(__FUNCTION__" CandleBody (False) xxx #"+string(i)+" "+string(CandleBody[i])+" < "+string(CandleBodyLength));
          
          return false;
       
       } 
       
-      Print(__FUNCTION__" CandleBody (True) #"+string(i)+" "+string(CandleBody[i])+" >= "+string(CandleBodyLength));
+      Print(__FUNCTION__" CandleBody (True) xxx #"+string(i)+" "+string(CandleBody[i])+" >= "+string(CandleBodyLength));
       
    }
 

@@ -103,9 +103,13 @@ bool CurrencyPairInVolatileList(){
 
    if(JPYPresent >= 0 || GBPAUDPresent >= 0 || EURAUDPresent >= 0){
    
+      Print(__FUNCTION__" Volatile Pair is Present");
+      
       return true;
    
    }
+   
+   Print(__FUNCTION__" Volatile Pair is not Present");
    
    return false;
 
